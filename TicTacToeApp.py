@@ -1,6 +1,7 @@
 import pygame
 import sys
 
+
 class TicTacToe:
     def __init__(self):
         self.board = [[' ' for _ in range(3)] for _ in range(3)]
@@ -44,13 +45,14 @@ class TicTacToe:
                 return False
         return True
 
+
 # Pygame initialization
 pygame.init()
 
 # Constants
 WIDTH, HEIGHT = 300, 300
-WHITE = (255, 255, 255)
-LINE_COLOR = (0, 0, 0)
+VIOLET = (148, 87, 235)
+DARK_GREEN = (0, 110, 0)
 LINE_WIDTH = 15
 CELL_SIZE = WIDTH // 3
 
@@ -61,10 +63,12 @@ game = TicTacToe()
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Tic Tac Toe")
 
+
 def draw_board():
     for i in range(1, 3):
-        pygame.draw.line(window, LINE_COLOR, (CELL_SIZE * i, 0), (CELL_SIZE * i, HEIGHT), LINE_WIDTH)
-        pygame.draw.line(window, LINE_COLOR, (0, CELL_SIZE * i), (WIDTH, CELL_SIZE * i), LINE_WIDTH)
+        pygame.draw.line(window, DARK_GREEN, (CELL_SIZE * i, 0), (CELL_SIZE * i, HEIGHT), LINE_WIDTH)
+        pygame.draw.line(window, DARK_GREEN, (0, CELL_SIZE * i), (WIDTH, CELL_SIZE * i), LINE_WIDTH)
+
 
 def draw_symbols():
     font = pygame.font.Font(None, 100)
@@ -73,9 +77,10 @@ def draw_symbols():
         for j in range(3):
             symbol = game.board[i][j]
             if symbol != ' ':
-                text = font.render(symbol, True, LINE_COLOR)
+                text = font.render(symbol, True, DARK_GREEN)
                 text_rect = text.get_rect(center=(CELL_SIZE * j + CELL_SIZE // 2, CELL_SIZE * i + CELL_SIZE // 2))
                 window.blit(text, text_rect)
+
 
 # Main game loop
 while not game.is_winner() and not game.game_over():
@@ -91,7 +96,7 @@ while not game.is_winner() and not game.game_over():
             if game.make_move(clicked_row, clicked_col):
                 game.switch_player()
 
-    window.fill(WHITE)
+    window.fill(VIOLET)
     draw_board()
     draw_symbols()
     pygame.display.flip()
